@@ -40,7 +40,8 @@ while True:
 		l_padding = l_padding + str(1)
 
 	while packets_sent < no_of_packets:
-		time.sleep(backoff)
+		time.sleep(numpy.random.exponential(backoff))
+		this_burst = int(round(numpy.random.normal(burst_length,1)))
 		burst = 0
 		if bursts_sent%30 < 10:
 			padding = m_padding
@@ -49,7 +50,7 @@ while True:
 		else:
 			padding = s_padding
 		bursts_sent = bursts_sent + 1
-		while burst < burst_length and packets_sent < no_of_packets:
+		while burst < this_burst and packets_sent < no_of_packets:
 			snt_time = time.time()
 			sock.sendto(str((str('%08d' % packets_sent), snt_time, padding)), addr)
 			packets_sent = packets_sent + 1
