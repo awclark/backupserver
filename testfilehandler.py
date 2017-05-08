@@ -7,6 +7,7 @@ import os
 import json
 import my_traceroute
 import get_isp
+import requests
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 host = '130.56.253.43'
@@ -61,4 +62,4 @@ while True:
 
 	time.sleep(5)
 
-	
+	r = requests.post("/home/ubuntu/front/nethealth_server/public/process_json.php",data = {'file': path+filename})

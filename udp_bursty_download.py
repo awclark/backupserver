@@ -9,6 +9,7 @@ PORT = 5206
 ADDR = (HOST, PORT)
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+backoff_min = 0.002
 
 try:
 	sock.bind(ADDR)
@@ -40,7 +41,10 @@ while True:
 		l_padding = l_padding + str(1)
 
 	while packets_sent < no_of_packets:
-		time.sleep(numpy.random.exponential(backoff))
+		alpha = 1./(backoff - backoff_min)
+		sleep_time = numpy.random.pareto(alpha) + backoff_min
+		#print sleep_time
+		time.sleep(sleep_time)
 		this_burst = int(round(numpy.random.normal(burst_length,1)))
 		burst = 0
 		if bursts_sent%30 < 10:
