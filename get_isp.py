@@ -1,4 +1,6 @@
-#!/usr/bin/env python
+
+# Original open source found at https://gist.github.com/timss/5503221
+# Edited by Angus Clark 4/4/2017
 
 import html2text
 import re

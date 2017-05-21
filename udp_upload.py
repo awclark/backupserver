@@ -1,3 +1,6 @@
+# Created by Angus Clark on the 10/12/2016
+# Last update 21/05/2017
+
 import socket
 import numpy
 import time
@@ -28,8 +31,6 @@ while True:
 	print 'Connection Accepted:'
 	print addr	
 
-	#time.sleep(1)
-
 	
 	test_params = conn.recv(BUFFER)
 	print test_params
@@ -38,7 +39,7 @@ while True:
 	latency = []
 	timing = []
 	packets_rcvd = 0
-
+	# reconrd incoming packets
 	while True:
 		try:
 			data, addr = upload_socket.recvfrom(BUFFER)
@@ -51,9 +52,7 @@ while True:
 
 	upload_socket.close()
 
-	#print latency
-	#print packets_rcvd
-	#print timing
+	#Aggregate data from packet stream
 	
 	lat = numpy.asarray(latency)
 	RCV = numpy.asarray(timing)
@@ -65,6 +64,7 @@ while True:
 	std_up_IAT = numpy.std(IAT)
 	mean_up_IAT = numpy.mean(IAT)
 
+	# Compule data and send it back to the client to be stored
 	command = str(packets_rcvd) + ',' + str(tot_up_time) + ',' + str(mean_up_lat) + ',' + str(std_up_lat) + ',' + str(std_up_IAT) + ',' + str(mean_up_IAT)
 
 	conn.send(command)

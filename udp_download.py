@@ -1,3 +1,7 @@
+# Created by Angus Clark 11/10/2016
+
+# This is a veraition of the variable bit rate download module, it instead send downstream packets with a CBR
+
 import socket
 import time
 
