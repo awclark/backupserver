@@ -7,6 +7,8 @@ import os
 import json
 import my_traceroute
 import get_isp
+import requests
+import time
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 host = '130.56.253.43'
@@ -60,5 +62,6 @@ while True:
 	savefile.close()
 
 	time.sleep(5)
-
-	
+	print path+filename
+	r = requests.post('http://130.56.253.43/nethealth_server/public/process_json.php', data = {'file':path+filename})
+	print r.status_code
